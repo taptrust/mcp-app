@@ -1,10 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
 // Import the JSON file directly
 import examplePrompts from '../example-app-prompts.json';
+
+// Import all example JSON files
+import customerSatisfaction from '../public/examples/customer-satisfaction.json';
+import eventRegistration from '../public/examples/event-registration.json';
+import premiumHeadphones from '../public/examples/premium-headphones.json';
+import projectTimeline from '../public/examples/project-timeline.json';
+import salesDashboard from '../public/examples/sales-dashboard.json';
+import smartFitnessWatch from '../public/examples/smart-fitness-watch.json';
+
+// Map of example IDs to their imported JSON data
+const exampleDataMap: Record<string, any> = {
+  'customer-satisfaction': customerSatisfaction,
+  'event-registration': eventRegistration,
+  'premium-headphones': premiumHeadphones,
+  'project-timeline': projectTimeline,
+  'sales-dashboard': salesDashboard,
+  'smart-fitness-watch': smartFitnessWatch
+};
 
 interface ExamplePrompt {
   id: string;
@@ -20,73 +38,62 @@ interface ExampleGalleryProps {
 }
 
 export default function ExampleGallery({ onSelect }: ExampleGalleryProps) {
-  const [examples, setExamples] = useState<ExamplePrompt[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadExamples = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Use the imported JSON data directly
-        const promptsData = examplePrompts;
-
-        // Flatten all categories into single array
-        const allExamples: ExamplePrompt[] = [];
-
-        for (const [category, prompts] of Object.entries(promptsData)) {
-          for (const prompt of prompts as any[]) {
-            allExamples.push({
-              ...prompt,
-              category: category
-            });
-          }
-        }
-
-        setExamples(allExamples);
-
-        // Auto-select the first example
-        if (allExamples.length > 0) {
-          handleSelect(allExamples[0]);
-        }
-      } catch (err) {
-        console.error('Error loading example prompts:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load example prompts');
-      } finally {
-        setLoading(false);
+  // Flatten all examples from different categories into a single array
+  const allExamples = (() => {
+    const examples: ExamplePrompt[] = [];
+    
+    // Helper to add examples from a category
+    const addExamples = (category: string, items: any[]) => {
+      if (Array.isArray(items)) {
+        items.forEach(item => {
+          examples.push({
+            ...item,
+            category: category
+          });
+        });
       }
     };
 
-    loadExamples();
-  }, []);
+    // Add examples from each category
+    Object.entries(examplePrompts).forEach(([category, items]) => {
+      addExamples(category, items);
+    });
+
+    return examples;
+  })();
 
   const handleSelect = async (example: ExamplePrompt) => {
     try {
-      // Fetch the example file from public directory
-      const response = await fetch(`/examples/${example.id}.json`);
-      if (!response.ok) {
-        throw new Error(`Failed to load example: ${response.status}`);
+      setLoading(example.id);
+      setError(null);
+      
+      // Get the example data from our imported JSON files
+      const exampleData = exampleDataMap[example.id];
+      
+      if (!exampleData) {
+        throw new Error(`Example data not found for ${example.id}`);
       }
-      const resourceContent = await response.text();
+      
+      // Convert the data to a JSON string
+      const resourceContent = JSON.stringify(exampleData, null, 2);
       onSelect(example.id, resourceContent);
     } catch (err) {
       console.error('Error loading example resource:', err);
-      alert(`Failed to load example resource: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      setError(`Failed to load example: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setLoading(null);
     }
   };
 
-  if (loading) {
-    return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-center py-8">
-          <Loader2 className="size-6 animate-spin mr-2" />
-          <span className="text-slate-600 dark:text-slate-400">Loading examples...</span>
-        </div>
-      </div>
-    );
-  }
+  // Auto-select the first example on initial render
+  useState(() => {
+    if (allExamples.length > 0) {
+      handleSelect(allExamples[0]);
+    }
+  });
 
   if (error) {
     return (
@@ -101,7 +108,7 @@ export default function ExampleGallery({ onSelect }: ExampleGalleryProps) {
   return (
     <div className="space-y-4">
       <div className="grid gap-3">
-        {examples.map((example) => (
+        {allExamples.map((example) => (
           <button
             key={example.id}
             className="border rounded-lg p-4 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left w-full cursor-pointer"
