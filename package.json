@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "xmcp dev & next dev --turbopack",
-    "build": "tsc --project tsconfig.lib.json",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
