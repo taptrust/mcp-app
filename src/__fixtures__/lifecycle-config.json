@@ -1,0 +1,63 @@
+{
+  "surveys": {
+    "onboarding": {
+      "id": "onboarding",
+      "title": "Welcome Survey",
+      "fields": [
+        {
+          "id": "role",
+          "type": "single_choice",
+          "label": "What is your role?",
+          "options": ["Developer", "Designer", "Product Manager"],
+          "required": true
+        }
+      ],
+      "trigger": "conversation_start"
+    }
+  },
+  "visualizations": {
+    "completion-metrics": {
+      "id": "completion-metrics",
+      "title": "Survey Completion",
+      "type": "metrics",
+      "dataSource": "survey:onboarding",
+      "config": {
+        "metrics": [
+          {
+            "label": "Completions",
+            "field": "response_count",
+            "format": "number"
+          }
+        ]
+      },
+      "trigger": "survey_complete",
+      "condition": "surveyId === 'onboarding'"
+    }
+  },
+  "lifecycle": {
+    "onConversationStart": [
+      {
+        "action": "show_survey",
+        "surveyId": "onboarding"
+      },
+      {
+        "action": "send_message",
+        "message": "Welcome! Please complete this quick survey."
+      }
+    ],
+    "onSurveyComplete": [
+      {
+        "action": "show_visualization",
+        "visualizationId": "completion-metrics",
+        "condition": "surveyId === 'onboarding'"
+      }
+    ],
+    "onMessageReceived": [
+      {
+        "action": "show_visualization",
+        "visualizationId": "completion-metrics",
+        "condition": "message.toLowerCase().includes('stats')"
+      }
+    ]
+  }
+}

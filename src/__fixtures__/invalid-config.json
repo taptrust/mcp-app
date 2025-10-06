@@ -1,0 +1,15 @@
+{
+  "surveys": {
+    "broken-survey": {
+      "id": "broken-survey",
+      "title": "Missing Required Fields",
+      "fields": [
+        {
+          "id": "field1",
+          "type": "invalid-type",
+          "label": "This has an invalid type"
+        }
+      ]
+    }
+  }
+}

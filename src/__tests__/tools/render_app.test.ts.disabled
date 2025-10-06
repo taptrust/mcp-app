@@ -1,0 +1,246 @@
+import { describe, it, expect } from 'vitest';
+import render_app from '../render_app';
+import minimalConfig from '../../__fixtures__/minimal-config.json';
+import surveyConfig from '../../__fixtures__/survey-config.json';
+import visualizationConfig from '../../__fixtures__/visualization-config.json';
+import lifecycleConfig from '../../__fixtures__/lifecycle-config.json';
+import invalidConfig from '../../__fixtures__/invalid-config.json';
+
+describe('render_app', () => {
+  it('should render app with minimal config and no context', async () => {
+    const result = await render_app({ config_json: JSON.stringify(minimalConfig) });
+
+    expect(result).toBeDefined();
+    expect(result.content).toBeDefined();
+    expect(result.content[0].type).toBe('text');
+    expect((result.content[0] as any).text).toContain('App config loaded successfully');
+  });
+
+  it('should trigger survey on conversation_start', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'conversation_start'
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+    expect(result.content[0].type).toBe('resource');
+    expect((result.content[0] as any).resource.uri).toContain('ui://survey/onboarding');
+    expect((result.content[0] as any).title).toBeDefined();
+  });
+
+  it('should trigger visualization on survey_complete with matching condition', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'survey_complete',
+        surveyId: 'onboarding'
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+    expect(result.content[0].type).toBe('resource');
+    expect((result.content[0] as any).resource.uri).toContain('ui://visualization/completion-metrics');
+    expect((result.content[0] as any).title).toBeDefined();
+  });
+
+  it('should not trigger visualization for wrong survey', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'survey_complete',
+        surveyId: 'different-survey'
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(result.content[0].type).toBe('text');
+    expect((result.content[0] as any).text).toContain('No UI components triggered');
+  });
+
+  it('should handle multiple lifecycle actions', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'conversation_start'
+      }
+    });
+
+    // conversation_start has 2 actions: show_survey and send_message
+    // Only show_survey renders a resource currently
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+  });
+
+  it('should return error for invalid config', async () => {
+    const result = await render_app({ config_json: JSON.stringify(invalidConfig) });
+
+    expect(result).toBeDefined();
+    expect(result.isError).toBe(true);
+    expect(result.content[0].type).toBe('text');
+    expect((result.content[0] as any).text).toContain('Error rendering app');
+  });
+
+  it('should handle config with surveys only', async () => {
+    const result = await render_app({ config_json: JSON.stringify(surveyConfig) });
+
+    expect(result).toBeDefined();
+    expect(result.content[0].type).toBe('text');
+  });
+
+  it('should handle config with visualizations only', async () => {
+    const result = await render_app({ config_json: JSON.stringify(visualizationConfig) });
+
+    expect(result).toBeDefined();
+    expect(result.content[0].type).toBe('text');
+  });
+
+  it('should handle empty context', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(minimalConfig),
+      context: {}
+    });
+
+    expect(result).toBeDefined();
+    expect(result.content).toBeDefined();
+  });
+
+  it('should handle message_received event with matching message', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'message_received',
+        data: { message: 'show me stats' }
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+  });
+
+  it('should not trigger on message_received without matching content', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'message_received',
+        data: { message: 'hello' }
+      }
+    });
+
+    expect(result.content[0].type).toBe('text');
+    expect((result.content[0] as any).text).toContain('No UI components triggered');
+  });
+
+  it('should handle empty lifecycle config', async () => {
+    const configWithoutLifecycle = {
+      surveys: {
+        'test': {
+          id: 'test',
+          title: 'Test',
+          fields: [{
+            id: 'field1',
+            type: 'text',
+            label: 'Test',
+            required: false
+          }],
+          trigger: 'manual'
+        }
+      }
+    };
+
+    const result = await render_app({
+      config_json: JSON.stringify(configWithoutLifecycle),
+      context: {
+        event: 'conversation_start'
+      }
+    });
+
+    expect(result.content[0].type).toBe('text');
+    expect((result.content[0] as any).text).toContain('No UI components triggered');
+  });
+
+  it('should continue processing even if one action fails', async () => {
+    const configWithBadAction = {
+      surveys: {
+        'survey1': {
+          id: 'survey1',
+          title: 'Survey 1',
+          fields: [{ id: 'f1', type: 'text', label: 'Field 1', required: false }],
+          trigger: 'conversation_start'
+        }
+      },
+      lifecycle: {
+        onConversationStart: [
+          {
+            action: 'show_survey',
+            surveyId: 'survey1'
+          },
+          {
+            action: 'show_survey',
+            surveyId: 'non-existent-survey'
+          }
+        ]
+      }
+    };
+
+    const result = await render_app({
+      config_json: JSON.stringify(configWithBadAction),
+      context: {
+        event: 'conversation_start'
+      }
+    });
+
+    // Should still render the valid survey
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+  });
+
+  it('should handle conditional actions correctly', async () => {
+    const configWithConditions = {
+      visualizations: {
+        'viz1': {
+          id: 'viz1',
+          title: 'Visualization',
+          type: 'chart',
+          dataSource: 'test',
+          config: { chartType: 'bar' },
+          trigger: 'survey_complete',
+          condition: "surveyId === 'target-survey'"
+        }
+      },
+      lifecycle: {
+        onSurveyComplete: [{
+          action: 'show_visualization',
+          visualizationId: 'viz1',
+          condition: "surveyId === 'target-survey'"
+        }]
+      }
+    };
+
+    const result = await render_app({
+      config_json: JSON.stringify(configWithConditions),
+      context: {
+        event: 'survey_complete',
+        surveyId: 'target-survey'
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(result.content.length).toBeGreaterThan(0);
+  });
+
+  it('should handle complex lifecycle with multiple events', async () => {
+    const result = await render_app({
+      config_json: JSON.stringify(lifecycleConfig),
+      context: {
+        event: 'conversation_start'
+      }
+    });
+
+    expect(result.content).toBeDefined();
+    expect(Array.isArray(result.content)).toBe(true);
+  });
+});

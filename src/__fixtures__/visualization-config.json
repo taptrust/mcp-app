@@ -1,0 +1,50 @@
+{
+  "visualizations": {
+    "feedback-chart": {
+      "id": "feedback-chart",
+      "title": "Feedback Analysis",
+      "description": "Visual breakdown of user feedback",
+      "type": "chart",
+      "dataSource": "survey:user-feedback",
+      "config": {
+        "chartType": "bar",
+        "xAxis": "experience",
+        "colors": ["#3498db", "#e74c3c", "#f39c12", "#2ecc71"]
+      },
+      "trigger": "manual"
+    },
+    "metrics-dashboard": {
+      "id": "metrics-dashboard",
+      "title": "Key Metrics",
+      "type": "metrics",
+      "dataSource": "survey:user-feedback",
+      "config": {
+        "metrics": [
+          {
+            "label": "Average Rating",
+            "field": "rating",
+            "format": "rating"
+          },
+          {
+            "label": "Response Count",
+            "field": "response_count",
+            "format": "number"
+          },
+          {
+            "label": "Satisfaction Rate",
+            "field": "satisfaction_rate",
+            "format": "percentage"
+          }
+        ]
+      },
+      "trigger": "manual"
+    },
+    "response-table": {
+      "id": "response-table",
+      "title": "All Responses",
+      "type": "table",
+      "dataSource": "survey:user-feedback",
+      "trigger": "manual"
+    }
+  }
+}

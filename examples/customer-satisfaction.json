@@ -1,0 +1,56 @@
+{
+  "type": "survey",
+  "theme": "modern",
+  "pages": [
+    {
+      "id": "page1",
+      "title": "Welcome",
+      "description": "We appreciate your feedback on our new product launch.",
+      "questions": []
+    },
+    {
+      "id": "page2",
+      "title": "Product Satisfaction",
+      "description": "Please rate your satisfaction with our new product.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "rating",
+          "text": "How satisfied are you with the product?",
+          "options": [
+            "Very dissatisfied",
+            "Dissatisfied",
+            "Neutral",
+            "Satisfied",
+            "Very satisfied"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "text",
+          "text": "What do you like most about the product?"
+        },
+        {
+          "id": "q3",
+          "type": "text",
+          "text": "What improvements would you suggest?"
+        }
+      ]
+    },
+    {
+      "id": "page3",
+      "title": "Final Thoughts",
+      "description": "Any additional comments or suggestions?",
+      "questions": [
+        {
+          "id": "q4",
+          "type": "text",
+          "text": "Any other comments or suggestions?"
+        }
+      ]
+    }
+  ],
+  "progressTracking": true,
+  "validation": true,
+  "customizableThemes": true
+}

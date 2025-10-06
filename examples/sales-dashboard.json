@@ -1,0 +1,136 @@
+{
+  "type": "visualization",
+  "theme": "corporate",
+  "metadata": {
+    "title": "Q3 Sales Performance Dashboard",
+    "description": "Interactive dashboard showing Q3 2023 revenue and units sold"
+  },
+  "data": {
+    "sales_data": [
+      { "month": "Jul", "revenue": 125000, "units": 1250, "target": 120000 },
+      { "month": "Aug", "revenue": 142000, "units": 1380, "target": 135000 },
+      { "month": "Sep", "revenue": 156000, "units": 1520, "target": 150000 }
+    ],
+    "products": [
+      { "name": "Product A", "revenue": 198000, "growth": 12.5 },
+      { "name": "Product B", "revenue": 156000, "growth": 8.2 },
+      { "name": "Product C", "revenue": 69000, "growth": 3.7 }
+    ]
+  },
+  "components": [
+    {
+      "type": "chart",
+      "subtype": "line",
+      "data": {
+        "source": "sales_data",
+        "fields": {
+          "x": "month",
+          "y": "revenue"
+        }
+      },
+      "options": {
+        "title": "Monthly Revenue Trends (Q3 2023)",
+        "xAxis": {
+          "title": "Month"
+        },
+        "yAxis": {
+          "title": "Revenue ($)",
+          "format": "$",
+          "min": 100000,
+          "max": 160000,
+          "step": 20000
+        },
+        "showLegend": true,
+        "showGrid": true,
+        "showDataLabels": true
+      }
+    },
+    {
+      "type": "metric",
+      "title": "Total Revenue",
+      "value": 423000,
+      "change": 8.2,
+      "format": "currency",
+      "icon": "dollar-sign"
+    },
+    {
+      "type": "metric",
+      "title": "Units Sold",
+      "value": 4150,
+      "change": 5.7,
+      "format": "number",
+      "icon": "package"
+    },
+    {
+      "type": "chart",
+      "subtype": "bar",
+      "data": {
+        "source": "products",
+        "fields": {
+          "x": "name",
+          "y": "revenue"
+        }
+      },
+      "options": {
+        "title": "Revenue by Product",
+        "xAxis": {
+          "title": "Product"
+        },
+        "yAxis": {
+          "title": "Revenue ($)",
+          "format": "$"
+        },
+        "color": "#4f46e5"
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "type": "filter",
+      "target": "sales_data",
+      "options": {
+        "fields": ["month"],
+        "multiSelect": true
+      }
+    },
+    {
+      "type": "tooltip",
+      "enabled": true,
+      "format": {
+        "revenue": "currency",
+        "units": "number",
+        "growth": "percent"
+      }
+    }
+  ],
+  "styling": {
+    "colors": {
+      "primary": "#4f46e5",
+      "secondary": "#818cf8",
+      "background": "#f9fafb",
+      "text": "#111827",
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "error": "#ef4444"
+    },
+    "font": {
+      "family": "Inter, system-ui, -apple-system, sans-serif",
+      "size": "14px"
+    },
+    "spacing": {
+      "padding": "1.5rem",
+      "borderRadius": "0.5rem"
+    },
+    "shadows": {
+      "small": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "medium": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      "large": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
+    }
+  }
+}

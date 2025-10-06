@@ -1,0 +1,17 @@
+{
+  "surveys": {
+    "simple-survey": {
+      "id": "simple-survey",
+      "title": "Simple Survey",
+      "fields": [
+        {
+          "id": "name",
+          "type": "text",
+          "label": "What is your name?",
+          "required": true
+        }
+      ],
+      "trigger": "manual"
+    }
+  }
+}

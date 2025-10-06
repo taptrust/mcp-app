@@ -1,0 +1,163 @@
+{
+  "type": "visualization",
+  "theme": "minimal",
+  "metadata": {
+    "title": "Product Development Roadmap 2023-2024",
+    "description": "Interactive timeline of key product development milestones and releases"
+  },
+  "data": {
+    "items": [
+      {
+        "id": "phase1",
+        "title": "Planning & Research",
+        "description": "Initial market research and requirements gathering",
+        "startDate": "2023-01-15",
+        "endDate": "2023-03-30",
+        "status": "completed",
+        "progress": 100,
+        "team": "Product"
+      },
+      {
+        "id": "design",
+        "title": "UI/UX Design",
+        "description": "Wireframing and high-fidelity designs",
+        "startDate": "2023-03-15",
+        "endDate": "2023-05-15",
+        "status": "completed",
+        "progress": 100,
+        "team": "Design"
+      },
+      {
+        "id": "dev1",
+        "title": "Core Development",
+        "description": "Backend infrastructure and core features",
+        "startDate": "2023-05-01",
+        "endDate": "2023-09-30",
+        "status": "in-progress",
+        "progress": 75,
+        "team": "Engineering"
+      },
+      {
+        "id": "qa1",
+        "title": "Alpha Testing",
+        "description": "Internal testing and bug fixes",
+        "startDate": "2023-08-15",
+        "endDate": "2023-10-15",
+        "status": "in-progress",
+        "progress": 30,
+        "team": "QA"
+      },
+      {
+        "id": "beta",
+        "title": "Beta Release",
+        "description": "Limited external beta with key clients",
+        "startDate": "2023-10-01",
+        "endDate": "2023-12-15",
+        "status": "pending",
+        "progress": 0,
+        "team": "Product"
+      },
+      {
+        "id": "launch",
+        "title": "Official Launch",
+        "description": "Public release and marketing campaign",
+        "startDate": "2024-01-15",
+        "endDate": "2024-02-15",
+        "status": "pending",
+        "progress": 0,
+        "team": "Marketing"
+      }
+    ]
+  },
+  "view": {
+    "type": "timeline",
+    "timeRange": {
+      "start": "2023-01-01",
+      "end": "2024-03-31"
+    },
+    "groupBy": "team",
+    "display": {
+      "showProgressBars": true,
+      "showMilestones": true,
+      "showDependencies": true
+    }
+  },
+  "style": {
+    "colors": {
+      "primary": "#4f46e5",
+      "secondary": "#818cf8",
+      "background": "#ffffff",
+      "text": "#111827",
+      "completed": "#10b981",
+      "in-progress": "#f59e0b",
+      "pending": "#e5e7eb"
+    },
+    "font": {
+      "family": "Inter, system-ui, -apple-system, sans-serif",
+      "size": "14px"
+    },
+    "spacing": {
+      "itemHeight": 60,
+      "groupSpacing": 40,
+      "timeMarkerHeight": 30
+    },
+    "borders": {
+      "radius": "4px",
+      "width": "2px"
+    },
+    "shadows": {
+      "item": "0 1px 3px rgba(0,0,0,0.1)",
+      "hover": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+    }
+  },
+  "interactivity": {
+    "tooltip": {
+      "enabled": true,
+      "fields": [
+        "title",
+        "description",
+        "team",
+        {
+          "field": "progress",
+          "format": "percent"
+        },
+        {
+          "field": "startDate",
+          "format": "date"
+        },
+        {
+          "field": "endDate",
+          "format": "date"
+        }
+      ]
+    },
+    "zoom": {
+      "enabled": true,
+      "minScale": 0.5,
+      "maxScale": 3,
+      "step": 0.1
+    },
+    "pan": {
+      "enabled": true,
+      "axis": "x"
+    },
+    "selection": {
+      "enabled": true,
+      "multiple": true
+    }
+  },
+  "annotations": [
+    {
+      "type": "milestone",
+      "date": "2023-07-01",
+      "label": "Mid-Year Review",
+      "description": "Progress review and roadmap adjustment"
+    },
+    {
+      "type": "milestone",
+      "date": "2024-01-01",
+      "label": "New Year",
+      "description": "Holiday season impact"
+    }
+  ]
+}

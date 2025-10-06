@@ -1,0 +1,59 @@
+{
+  "surveys": {
+    "user-feedback": {
+      "id": "user-feedback",
+      "title": "User Feedback Survey",
+      "description": "Help us improve our service",
+      "fields": [
+        {
+          "id": "name",
+          "type": "text",
+          "label": "Your Name",
+          "required": true,
+          "validation": {
+            "minLength": 2,
+            "message": "Name must be at least 2 characters"
+          }
+        },
+        {
+          "id": "email",
+          "type": "email",
+          "label": "Email Address",
+          "required": true
+        },
+        {
+          "id": "rating",
+          "type": "rating",
+          "label": "How would you rate our service?",
+          "min": 1,
+          "max": 5,
+          "required": true
+        },
+        {
+          "id": "experience",
+          "type": "single_choice",
+          "label": "How was your experience?",
+          "options": ["Excellent", "Good", "Fair", "Poor"],
+          "required": true
+        },
+        {
+          "id": "features",
+          "type": "multiple_choice",
+          "label": "Which features did you use?",
+          "options": ["Search", "Chat", "Analytics", "Reports"],
+          "maxSelections": 3
+        },
+        {
+          "id": "comments",
+          "type": "textarea",
+          "label": "Additional Comments",
+          "placeholder": "Tell us more about your experience...",
+          "validation": {
+            "maxLength": 500
+          }
+        }
+      ],
+      "trigger": "conversation_start"
+    }
+  }
+}
