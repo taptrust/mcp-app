@@ -20,9 +20,6 @@ export default function PlaygroundContent() {
           <h1 className="text-3xl text-center font-bold text-slate-900 dark:text-slate-100 mb-2">
             MCP-APP Examples
           </h1>
-          <p className="text-center text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            These examples were generated using the MCP-APP AI agent. Select an example to see the pre-generated MCP-UI resource.
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">

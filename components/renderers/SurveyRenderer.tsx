@@ -137,44 +137,27 @@ export default function SurveyRenderer({ data }: SurveyRendererProps) {
                   const primaryHsl = parseHSL(themeColors.primary);
                   const isDarkTheme = bgHsl.l < 50; // L is 0-100 in HSL
                   
-                  // Adjust colors based on theme and selection state
-                  const backgroundColor = isSelected 
-                    ? isDarkTheme 
-                      ? `hsl(${primaryHsl.h} ${primaryHsl.s}% ${Math.min(primaryHsl.l + 20, 100)}%)`
-                      : `hsl(${primaryHsl.h}% ${Math.min(primaryHsl.s, 80)}% 95%)` // Lighter background for better contrast
-                    : 'transparent';
-                  
-                  // Parse foreground HSL values
-                  const foregroundHsl = parseHSL(themeColors.foreground);
-                  
-                  // Text colors with better contrast for selection state
+                  // Selection styling - use secondary color for selected state (darker, more visible)
+                  const backgroundColor = isSelected
+                    ? hslToCSS(themeColors.secondary)
+                    : hslToCSS(themeColors.muted);
+
+                  // Use white text on secondary background, foreground for unselected
                   const textColor = isSelected
-                    ? isDarkTheme 
-                      ? '#ffffff'  // White text on dark selected background
-                      : `hsl(${primaryHsl.h} ${primaryHsl.s}% 20%)`  // Primary color text on light background
-                    : isDarkTheme
-                      ? `hsl(${foregroundHsl.h} ${foregroundHsl.s}% 90%)`  // Light text on dark background
-                      : `hsl(${foregroundHsl.h} ${foregroundHsl.s}% 20%)`;  // Dark text on light background
-                  
-                  // Parse border HSL values
-                  const borderHsl = themeColors.border ? parseHSL(themeColors.border) : { h: 0, s: 0, l: 0 };
-                  
-                  // More prominent border for selected items
+                    ? hslToCSS(themeColors.secondaryForeground)
+                    : hslToCSS(themeColors.foreground);
+
+                  // Use secondary color for selected border to match background
                   const borderColor = isSelected
-                    ? isDarkTheme
-                      ? `hsl(${primaryHsl.h} ${primaryHsl.s}% ${Math.min(primaryHsl.l + 20, 100)}%)`
-                      : `hsl(${primaryHsl.h} ${primaryHsl.s}% 60%)`  // More saturated border for light theme
-                    : isDarkTheme
-                      ? `hsl(${borderHsl.h} ${borderHsl.s}% ${Math.min(borderHsl.l + 10, 100)}%)`
-                      : `hsl(${borderHsl.h} ${borderHsl.s}% ${borderHsl.l}%)`;
-                  
-                  const hoverBackground = isDarkTheme
-                    ? `hsl(${primaryHsl.h} ${primaryHsl.s}% ${isSelected ? 30 : 15}%)`
-                    : `hsl(${primaryHsl.h} ${primaryHsl.s}% ${isSelected ? 60 : 95}%)`;
-                  
+                    ? hslToCSS(themeColors.secondary)
+                    : hslToCSS(themeColors.border);
+
+                  const hoverBackground = hslToCSS(themeColors.accent);
+
                   return (
                     <button
                       key={option}
+                      onClick={() => handleAnswer(currentPageData.question.id, option)}
                       className={`w-full text-left py-3 px-5 rounded-lg font-medium transition-all duration-200 border-2 hover:shadow-sm ${
                         isSelected ? 'ring-2 ring-offset-2' : ''
                       }`}
@@ -196,7 +179,7 @@ export default function SurveyRenderer({ data }: SurveyRendererProps) {
                       }}
                       onMouseOut={(e) => {
                         if (!isSelected) {
-                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.backgroundColor = backgroundColor;
                         }
                       }}
                     >

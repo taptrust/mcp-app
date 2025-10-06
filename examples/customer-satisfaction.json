@@ -1,56 +1,44 @@
 {
   "type": "survey",
-  "theme": "modern",
+  "theme": "ocean",
   "pages": [
     {
       "id": "page1",
-      "title": "Welcome",
-      "description": "We appreciate your feedback on our new product launch.",
-      "questions": []
+      "question": {
+        "id": "q1",
+        "type": "text",
+        "prompt": "What is your overall impression of our new product?",
+        "required": true
+      }
     },
     {
       "id": "page2",
-      "title": "Product Satisfaction",
-      "description": "Please rate your satisfaction with our new product.",
-      "questions": [
-        {
-          "id": "q1",
-          "type": "rating",
-          "text": "How satisfied are you with the product?",
-          "options": [
-            "Very dissatisfied",
-            "Dissatisfied",
-            "Neutral",
-            "Satisfied",
-            "Very satisfied"
-          ]
-        },
-        {
-          "id": "q2",
-          "type": "text",
-          "text": "What do you like most about the product?"
-        },
-        {
-          "id": "q3",
-          "type": "text",
-          "text": "What improvements would you suggest?"
-        }
-      ]
+      "question": {
+        "id": "q2",
+        "type": "multipleChoice",
+        "prompt": "How would you rate the quality of our new product?",
+        "options": [
+          "Poor",
+          "Fair",
+          "Good",
+          "Excellent"
+        ],
+        "required": true
+      }
     },
     {
       "id": "page3",
-      "title": "Final Thoughts",
-      "description": "Any additional comments or suggestions?",
-      "questions": [
-        {
-          "id": "q4",
-          "type": "text",
-          "text": "Any other comments or suggestions?"
-        }
-      ]
+      "question": {
+        "id": "q3",
+        "type": "rating",
+        "prompt": "On a scale of 1-10, how likely are you to recommend our new product to a friend or colleague?",
+        "scale": {
+          "min": 1,
+          "max": 10
+        },
+        "required": true
+      }
     }
   ],
-  "progressTracking": true,
-  "validation": true,
-  "customizableThemes": true
+  "progressTracking": true
 }

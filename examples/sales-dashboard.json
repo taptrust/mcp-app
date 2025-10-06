@@ -1,6 +1,6 @@
 {
   "type": "visualization",
-  "theme": "corporate",
+  "theme": "ocean",
   "metadata": {
     "title": "Q3 Sales Performance Dashboard",
     "description": "Interactive dashboard showing Q3 2023 revenue and units sold"

@@ -29,89 +29,85 @@ export interface ThemeColors {
 
 export const themeColorPalette: Record<ThemeName, ThemeColors> = {
   ocean: {
-    background: '222 84% 5%',
-    foreground: '210 40% 98%',
-    primary: '200 90% 52%', // blue-900
+    background: '215 60% 8%',           // deep navy
+    foreground: '210 25% 92%',          // pale blue-gray
+    primary: '210 90% 55%',             // vivid blue
     primaryForeground: '0 0% 100%',
-    secondary: '180 80% 35%', // teal-600
-    secondaryForeground: '0 0% 100%',
-    card: '250 20% 10%',
-    cardForeground: '210 40% 98%',
-    border: '215 25% 27%',
-    muted: '222 14% 10%',
-    mutedForeground: '215 16% 65%',
-    accent: '215 25% 27%',
-    accentForeground: '210 40% 98%',
+    secondary: '220 70% 45%',           // medium blue (no green)
+    secondaryForeground: '0 0% 98%',
+    card: '220 25% 15%',
+    cardForeground: '210 25% 92%',
+    border: '220 25% 30%',
+    muted: '215 15% 20%',
+    mutedForeground: '215 15% 75%',
+    accent: '225 70% 40%',              // rich blue accent
+    accentForeground: '0 0% 98%',
     sidebar: {
-      background: '222 84% 5%',
-      foreground: '210 40% 98%',
-      primary: '220 90% 22%',
-      primaryForeground: '0 0% 100%',
-      accent: '222 84% 15%',
-      accentForeground: '210 40% 98%',
-      border: '215 25% 27%',
+      background: '215 60% 8%',
+      foreground: '210 25% 92%',
+      primary: '215 80% 45%',
+      primaryForeground: '0 0% 98%',
+      accent: '225 60% 25%',
+      accentForeground: '210 25% 92%',
+      border: '220 25% 30%',
     },
   },
   forest: {
-    background: '7 9% 5%',
-    foreground: '151 89% 95%',
-    primary: '151 55% 25%',
-    primaryForeground: '0 0% 100%',
-    secondary: '39 70% 60%',
-    secondaryForeground: '0 0% 100%',
-    card: '240 10% 15%',
-    cardForeground: '151 89% 95%',
-    border: '240 10% 20%',
-    muted: '240 10% 10%',
-    mutedForeground: '240 5% 65%',
-    accent: '240 10% 20%',
-    accentForeground: '151 89% 95%',
+    background: '150 20% 8%',
+    foreground: '140 30% 90%',
+    primary: '151 55% 30%',
+    primaryForeground: '0 0% 98%',
+    secondary: '40 70% 50%',
+    secondaryForeground: '0 0% 10%',
+    card: '150 15% 14%',
+    cardForeground: '140 30% 90%',
+    border: '150 15% 25%',
+    muted: '150 10% 18%',
+    mutedForeground: '150 10% 70%',
+    accent: '150 25% 22%',
+    accentForeground: '140 30% 90%',
     sidebar: {
-      background: '7 9% 5%',
-      foreground: '151 89% 95%',
-      primary: '151 55% 25%',
-      primaryForeground: '0 0% 100%',
-      accent: '240 10% 15%',
-      accentForeground: '151 89% 95%',
-      border: '240 10% 20%',
+      background: '150 20% 8%',
+      foreground: '140 30% 90%',
+      primary: '151 55% 30%',
+      primaryForeground: '0 0% 98%',
+      accent: '150 25% 20%',
+      accentForeground: '140 30% 90%',
+      border: '150 15% 25%',
     },
   },
   space: {
-    background: '222 84% 5%',
-    foreground: '270 20% 97%',
-    primary: '262 83% 58%',
+    background: '260 40% 7%',
+    foreground: '270 30% 92%',
+    primary: '260 80% 60%',
     primaryForeground: '0 0% 100%',
-    secondary: '292 84% 61%',
-    secondaryForeground: '0 0% 100%',
-    card: '240 10% 15%',
-    cardForeground: '270 20% 97%',
-    border: '240 10% 20%',
-    muted: '240 10% 10%',
-    mutedForeground: '240 5% 65%',
-    accent: '240 10% 20%',
-    accentForeground: '270 20% 97%',
+    secondary: '280 60% 55%',
+    secondaryForeground: '0 0% 98%',
+    card: '260 25% 14%',
+    cardForeground: '270 30% 92%',
+    border: '260 25% 25%',
+    muted: '260 20% 18%',
+    mutedForeground: '260 10% 70%',
+    accent: '270 60% 25%',
+    accentForeground: '0 0% 98%',
     sidebar: {
-      background: '222 84% 5%',
-      foreground: '270 20% 97%',
-      primary: '262 83% 58%',
-      primaryForeground: '0 0% 100%',
-      accent: '240 10% 15%',
-      accentForeground: '270 20% 97%',
-      border: '240 10% 20%',
+      background: '260 40% 7%',
+      foreground: '270 30% 92%',
+      primary: '260 80% 45%',
+      primaryForeground: '0 0% 98%',
+      accent: '260 40% 18%',
+      accentForeground: '270 30% 92%',
+      border: '260 25% 25%',
     },
   },
 };
 
-/**
- * Get theme colors by theme name
- */
+/** Get theme colors by theme name */
 export function getThemeColors(theme: ThemeName): ThemeColors {
-  return themeColorPalette[theme];
+  return themeColorPalette[theme] || themeColorPalette.ocean;
 }
 
-/**
- * Convert HSL color to CSS variable
- */
+/** Convert HSL color to CSS variable */
 export function hslToCSS(hsl: HSLColor): string {
   return `hsl(${hsl})`;
 }

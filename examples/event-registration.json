@@ -1,68 +1,47 @@
 {
   "type": "survey",
-  "theme": "professional",
+  "theme": "forest",
   "pages": [
     {
       "id": "page1",
-      "title": "Event Registration",
-      "questions": [
-        {
-          "id": "q1",
-          "type": "text",
-          "label": "Full Name",
-          "required": true
-        },
-        {
-          "id": "q2",
-          "type": "text",
-          "label": "Email Address",
-          "required": true,
-          "validation": {
-            "type": "email"
-          }
-        },
-        {
-          "id": "q3",
-          "type": "text",
-          "label": "Company Name",
-          "required": false
-        },
-        {
-          "id": "q4",
-          "type": "multipleChoice",
-          "label": "Are you interested in a product demo during the event?",
-          "options": [
-            "Yes",
-            "No"
-          ],
-          "required": true
-        }
-      ]
+      "question": {
+        "id": "q1",
+        "type": "text",
+        "prompt": "What is your full name?",
+        "required": true
+      }
     },
     {
       "id": "page2",
-      "title": "Additional Information",
-      "questions": [
-        {
-          "id": "q5",
-          "type": "text",
-          "label": "Any specific questions or topics you'd like us to address during the event?",
-          "required": false
-        },
-        {
-          "id": "q6",
-          "type": "multipleChoice",
-          "label": "How did you hear about this event?",
-          "options": [
-            "Email",
-            "Website",
-            "Social Media",
-            "Friend/Colleague",
-            "Other"
-          ],
-          "required": true
-        }
-      ]
+      "question": {
+        "id": "q2",
+        "type": "text",
+        "prompt": "What is your email address?",
+        "required": true
+      }
+    },
+    {
+      "id": "page3",
+      "question": {
+        "id": "q3",
+        "type": "multipleChoice",
+        "prompt": "Are you interested in purchasing our new product?",
+        "options": [
+          "Yes",
+          "No",
+          "Maybe"
+        ],
+        "required": true
+      }
+    },
+    {
+      "id": "page4",
+      "question": {
+        "id": "q4",
+        "type": "text",
+        "prompt": "Any dietary restrictions for the event?",
+        "required": false
+      }
     }
   ],
   "progressTracking": true,

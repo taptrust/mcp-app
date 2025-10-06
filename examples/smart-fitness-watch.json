@@ -1,34 +1,40 @@
 {
   "type": "product",
-  "theme": "vibrant",
+  "theme": "space",
   "product": {
     "name": "Smart Fitness Watch",
     "description": "Our new smart fitness watch with health monitoring features",
-    "imageGallery": [
-      "image1.jpg",
-      "image2.jpg"
-    ],
-    "price": {
-      "current": 199.99,
-      "original": 249.99
-    },
     "features": [
-      "Heart Rate Monitor",
-      "Sleep Tracker",
+      "Health Monitoring",
+      "Heart Rate Tracker",
+      "Sleep Quality Analysis",
       "Step Counter",
-      "Calorie Tracker",
-      "Water Resistant"
+      "Calorie Burn Estimator"
     ],
+    "imageGallery": [
+      "smartwatch_front.jpg",
+      "smartwatch_side.jpg",
+      "smartwatch_back.jpg"
+    ],
+    "pricing": {
+      "currentPrice": 199.99,
+      "previousPrice": 249.99,
+      "comparison": [
+        {
+          "product": "Competitor Smartwatch",
+          "price": 229.99
+        }
+      ]
+    },
     "specifications": {
-      "Display": "1.4 inch AMOLED",
-      "Battery Life": "7 days",
-      "Connectivity": "Bluetooth 5.0",
-      "Compatibility": "iOS and Android",
-      "Water Resistance": "50m"
+      "batteryLife": "7 days",
+      "waterResistance": "50 meters",
+      "compatibility": "iOS and Android",
+      "connectivity": "Bluetooth 5.0"
     },
     "cta": {
       "text": "Buy Now",
-      "link": "/buy-now"
+      "action": "addToCart"
     }
   }
 }

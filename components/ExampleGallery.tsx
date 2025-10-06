@@ -1,24 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 
 // Import the JSON file directly
 import examplePrompts from '../example-app-prompts.json';
 
 // Import all example JSON files
-import customerSatisfaction from '../public/examples/customer-satisfaction.json';
-import eventRegistration from '../public/examples/event-registration.json';
-import premiumHeadphones from '../public/examples/premium-headphones.json';
-import projectTimeline from '../public/examples/project-timeline.json';
-import salesDashboard from '../public/examples/sales-dashboard.json';
-import smartFitnessWatch from '../public/examples/smart-fitness-watch.json';
+import customerSatisfaction from '../examples/customer-satisfaction.json';
+import eventRegistration from '../examples/event-registration.json';
+import projectTimeline from '../examples/project-timeline.json';
+import salesDashboard from '../examples/sales-dashboard.json';
+import smartFitnessWatch from '../examples/smart-fitness-watch.json';
 
 // Map of example IDs to their imported JSON data
 const exampleDataMap: Record<string, any> = {
   'customer-satisfaction': customerSatisfaction,
   'event-registration': eventRegistration,
-  'premium-headphones': premiumHeadphones,
   'project-timeline': projectTimeline,
   'sales-dashboard': salesDashboard,
   'smart-fitness-watch': smartFitnessWatch
@@ -89,11 +87,12 @@ export default function ExampleGallery({ onSelect }: ExampleGalleryProps) {
   };
 
   // Auto-select the first example on initial render
-  useState(() => {
+  useEffect(() => {
     if (allExamples.length > 0) {
       handleSelect(allExamples[0]);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   if (error) {
     return (
