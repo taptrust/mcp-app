@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 
 // Import the JSON file directly
-import examplePrompts from '../public/example-app-prompts.json';
+import examplePrompts from '../example-app-prompts.json';
 
 interface ExamplePrompt {
   id: string;
@@ -64,9 +64,12 @@ export default function ExampleGallery({ onSelect }: ExampleGalleryProps) {
 
   const handleSelect = async (example: ExamplePrompt) => {
     try {
-      // Dynamically import the example file
-      const module = await import(`../public/examples/${example.id}.json`);
-      const resourceContent = JSON.stringify(module.default || module);
+      // Fetch the example file from public directory
+      const response = await fetch(`/examples/${example.id}.json`);
+      if (!response.ok) {
+        throw new Error(`Failed to load example: ${response.status}`);
+      }
+      const resourceContent = await response.text();
       onSelect(example.id, resourceContent);
     } catch (err) {
       console.error('Error loading example resource:', err);

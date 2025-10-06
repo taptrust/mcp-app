@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "xmcp dev & next dev --turbopack",
-    "build": "next build",
+    "build": "pnpm generate-examples && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",

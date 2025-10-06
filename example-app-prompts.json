@@ -1,0 +1,48 @@
+{
+  "surveys": [
+    {
+      "id": "customer-satisfaction",
+      "prompt": "Create a customer satisfaction survey for our new product launch",
+      "type": "survey",
+      "theme": "ocean",
+      "description": "Interactive survey for collecting customer feedback about product experience",
+      "category": "Customer Experience"
+    },
+    {
+      "id": "event-registration",
+      "prompt": "Create an event registration form for our upcoming product launch event",
+      "type": "survey",
+      "theme": "forest",
+      "description": "Registration form for event attendees with contact information and preferences",
+      "category": "Event Management"
+    }
+  ],
+  "visualizations": [
+    {
+      "id": "sales-dashboard",
+      "prompt": "Create a sales performance dashboard showing monthly revenue trends",
+      "type": "visualization",
+      "theme": "ocean",
+      "description": "Interactive dashboard with charts showing sales metrics and growth trends",
+      "category": "Business Analytics"
+    },
+    {
+      "id": "project-timeline",
+      "prompt": "Create a project timeline visualization for our product development roadmap",
+      "type": "visualization",
+      "theme": "space",
+      "description": "Gantt chart showing project phases, milestones, and progress tracking",
+      "category": "Project Management"
+    }
+  ],
+  "products": [
+    {
+      "id": "smart-fitness-watch",
+      "prompt": "Create a product card for our new smart fitness watch with health monitoring features",
+      "type": "product",
+      "theme": "space",
+      "description": "Detailed product showcase with technical specifications and benefits",
+      "category": "Wearables"
+    }
+  ]
+}
