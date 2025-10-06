@@ -25,7 +25,8 @@
     "noEmit": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@xmcp/*": ["./.xmcp/*"]
     },
     "incremental": true,
     "isolatedModules": true,
