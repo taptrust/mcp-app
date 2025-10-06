@@ -1,5 +1,5 @@
 // Main exports for @MCP-APP/server
-export { default as generateApp } from '../tools/generate_app';
+// export { default as generateApp } from '../tools/generate_app';
 export { generateMCPUIResource } from '../lib/mcp-app-agent';
 
 // Export all types and utilities
