@@ -72,13 +72,32 @@ export default function Home() {
            MCP-APP is a framework built on <a className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold" href="https://mcp-ui.dev">MCP-UI</a> that generates on-demands surveys, visualizations, and product cards from natural language prompts.
           </p>
 
-          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg max-w-2xl mx-auto">
-            <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
-            This MCP server is available at:
-            </p>
-            <code className="text-sm font-mono text-blue-900 dark:text-blue-100">
-              {mcpUrl}
-            </code>
+          <div className="mt-4 grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            <div className="p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <p className="text-sm text-blue-800 dark:text-blue-200 font-medium mb-1">
+                This MCP server is available at:
+              </p>
+              <code className="text-sm font-mono text-blue-900 dark:text-blue-100 break-all">
+                {mcpUrl}
+              </code>
+            </div>
+
+            <div className="p-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg">
+              <p className="text-sm text-green-800 dark:text-green-200 font-medium mb-1">
+                Install the npm package:
+              </p>
+              <code className="text-sm font-mono text-green-900 dark:text-green-100">
+                npm install{' '}
+                <a
+                  href="https://www.npmjs.com/package/@taptrust/mcp-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                >
+                  @taptrust/mcp-app
+                </a>
+              </code>
+            </div>
           </div>
         </div>
 
