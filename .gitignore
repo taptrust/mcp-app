@@ -12,6 +12,9 @@ out/
 .next/
 .vercel/
 
+# XMCP
+.xmcp/
+
 # Environment variables
 .env
 .env.local

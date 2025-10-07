@@ -1,8 +1,33 @@
 {
-  "name": "@taptrust-ai/mcp-app",
-  "version": "1.0.1",
+  "name": "@taptrust/mcp-app",
+  "version": "1.0.0",
   "description": "MCP server for generating interactive surveys, visualizations, and product cards on-demand using AI agents",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taptrust/mcp-app.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "survey",
+    "visualization",
+    "product-card",
+    "next.js"
+  ],
+  "author": "TapTrust AI",
+  "homepage": "https://github.com/taptrust/mcp-app#readme",
   "scripts": {
     "dev": "xmcp dev & next dev --turbopack",
     "build": "xmcp build && next build --turbopack",
@@ -12,7 +37,8 @@
     "test:ui": "vitest --ui",
     "clean": "rm -rf dist .xmcp .next",
     "type-check": "tsc --noEmit",
-    "generate-examples": "tsx scripts/generate-examples.ts"
+    "generate-examples": "tsx scripts/generate-examples.ts",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^2.0.23",
