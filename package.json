@@ -1,6 +1,6 @@
 {
   "name": "@taptrust/mcp-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for generating interactive surveys, visualizations, and product cards on-demand using AI agents",
   "license": "MIT",
   "main": "dist/index.js",
