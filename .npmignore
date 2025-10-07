@@ -10,12 +10,20 @@ tests/
 # Source files (publish only dist)
 src/
 tsconfig.json
+tsconfig.*.json
+tsconfig.tsbuildinfo
+dist/tsconfig.lib.tsbuildinfo
 
 # Build tools
 .xmcp/
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# Next.js build artifacts
+.next/cache/
+.next/trace
+.next/types/
 
 # IDE
 .vscode/
@@ -35,3 +43,20 @@ Thumbs.db
 coverage/
 .env
 .env.local
+.env.example
+node_modules/
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# Development configs
+vitest.config.ts
+next.config.ts
+postcss.config.mjs
+tailwindcss.config.ts
+xmcp.config.ts
+xmcp-env.d.ts
+next-env.d.ts
+
+# Backup files
+tools_backup/
+*.backup
