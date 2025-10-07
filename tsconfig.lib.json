@@ -17,11 +17,11 @@
     "noEmitOnError": false
   },
   "include": [
+    "index.ts",
     "lib/**/*",
     "components/**/*",
     "types/**/*",
-    "app/**/*",
-    "src/**/*"
+    "app/**/*"
   ],
   "exclude": [
     "node_modules",
